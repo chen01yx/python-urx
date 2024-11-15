@@ -94,7 +94,7 @@ class Robot(URRobot):
         if pose is not None:
             return self.csys.inverse * m3d.Transform(pose)
 
-    def set_pose(self, trans, acc=0.01, vel=0.01, wait=True, command="movel", threshold=None):
+    def set_pose(self, trans: m3d.Transform, acc=0.01, vel=0.01, wait=True, command="movel", threshold=None):
         """
         move tcp to point and orientation defined by a transformation
         UR robots have several move commands, by default movel is used but it can be changed
@@ -208,8 +208,8 @@ class Robot(URRobot):
         return current transformation from tcp to current csys
         """
         t = self.get_pose(wait, _log)
-        pos_vec: m3d.PoseVector = t.pose_vector
-        return pos_vec.array.tolist()
+        pos_vec = t.pose_vector
+        return pos_vec.tolist()
 
     def set_gravity(self, vector):
         if isinstance(vector, m3d.Vector):
